@@ -53,6 +53,11 @@ COPY --from=builder /opt/netbox/venv /opt/netbox/venv
 ARG NETBOX_PATH
 COPY ${NETBOX_PATH} /opt/netbox
 
+# CUSTOM CONFIG
+COPY subspace_plugin/src/netbox_subspace /opt/netbox/netbox/netbox_subspace
+RUN /opt/netbox/venv/bin/pip install /opt/netbox/netbox/netbox_subspace
+
+
 COPY docker/configuration.docker.py /opt/netbox/netbox/netbox/configuration.py
 COPY docker/docker-entrypoint.sh /opt/netbox/docker-entrypoint.sh
 COPY docker/launch-netbox.sh /opt/netbox/launch-netbox.sh
